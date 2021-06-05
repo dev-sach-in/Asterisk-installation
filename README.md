@@ -1,6 +1,6 @@
 # Asterisk-installation
 
-###A little house keeping before installation.
+### A little house keeping before installation.
 ```shell
 yum update
 sed -i 's/\(^SELINUX=\).*/\SELINUX=disabled/' /etc/sysconfig/selinux
@@ -17,20 +17,20 @@ sudo systemctl enable httpd.service
 sudo systemctl start httpd.service
 ```
 
-###Installing DependenciesPermalink
+### Installing DependenciesPermalink
 
 ```shell
 yum install -y epel-release dmidecode gcc-c++ ncurses-devel libxml2-devel make wget openssl-devel newt-devel kernel-devel sqlite-devel libuuid-devel gtk2-devel jansson-devel binutils-devel
 ```
 -----------------------------------
-####For asterisk 16
+#### For asterisk 16
 ```shell
 dnf --enablerepo=PowerTools install libedit-devel
 dnf --enablerepo=PowerTools install libsrtp
 dnf --enablerepo=PowerTools install libsrtp-devel
 ```
 
-#Install Asterisk 16
+# Install Asterisk 16
 ```shell
 cd /usr/src/
 ```
@@ -102,7 +102,7 @@ mv sip.conf sip.sample
 mv pjsip.conf pjsip.sample
 ```
 
-####Create extensions.conf
+#### Create extensions.conf
 ```shell
 vi extensions.conf
 ```
@@ -116,7 +116,7 @@ same = n,Wait(1)
 same = n,Playback(hello-world)
 same = n,Hangup()
 ```
-####Create pjsip.conf
+#### Create pjsip.conf
 ```shell
 vi pjsip.conf
 ```
