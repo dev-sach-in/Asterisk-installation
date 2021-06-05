@@ -145,5 +145,9 @@ type=aor
 max_contacts=1
 ```
 
-`asterisk -rx "core restart now"`
-`asterisk -rvvvvv`
+```shell
+asterisk -rx "core restart now"
+```
+```shell
+asterisk -rvvvvv
+```
