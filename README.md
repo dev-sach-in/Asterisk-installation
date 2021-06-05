@@ -1,57 +1,111 @@
 # Asterisk-installation
 
 ###A little house keeping before installation.
-`yum update`
-`sed -i 's/\(^SELINUX=\).*/\SELINUX=disabled/' /etc/sysconfig/selinux`
-`sed -i 's/\(^SELINUX=\).*/\SELINUX=disabled/' /etc/selinux/config`
-`sestatus`
-`reboot`
-`sestatus`
-`sudo yum install httpd`
-`firewall-cmd --zone=public --add-port=80/tcp --permanent`
-`firewall-cmd --zone=public --permanent --add-service=http`
-`firewall-cmd --zone=public --permanent --add-service=https`
-`firewall-cmd --reload`
-`sudo systemctl enable httpd.service`
-`sudo systemctl start httpd.service`
+```shell
+yum update
+sed -i 's/\(^SELINUX=\).*/\SELINUX=disabled/' /etc/sysconfig/selinux
+sed -i 's/\(^SELINUX=\).*/\SELINUX=disabled/' /etc/selinux/config
+sestatus
+reboot
+sestatus
+sudo yum install httpd
+firewall-cmd --zone=public --add-port=80/tcp --permanent
+firewall-cmd --zone=public --permanent --add-service=http
+firewall-cmd --zone=public --permanent --add-service=https
+firewall-cmd --reload
+sudo systemctl enable httpd.service
+sudo systemctl start httpd.service
+```
 
 ###Installing DependenciesPermalink
-`yum install -y epel-release dmidecode gcc-c++ ncurses-devel libxml2-devel make wget openssl-devel newt-devel kernel-devel sqlite-devel libuuid-devel gtk2-devel jansson-devel binutils-devel`
+
+```shell
+yum install -y epel-release dmidecode gcc-c++ ncurses-devel libxml2-devel make wget openssl-devel newt-devel kernel-devel sqlite-devel libuuid-devel gtk2-devel jansson-devel binutils-devel
+```
 -----------------------------------
 ####For asterisk 16
-`dnf --enablerepo=PowerTools install libedit-devel`
-`dnf --enablerepo=PowerTools install libsrtp`
-`dnf --enablerepo=PowerTools install libsrtp-devel`
-
+```shell
+dnf --enablerepo=PowerTools install libedit-devel
+dnf --enablerepo=PowerTools install libsrtp
+dnf --enablerepo=PowerTools install libsrtp-devel
+```
 
 #Install Asterisk 16
-`cd /usr/src/`
-`wget http://downloads.asterisk.org/pub/telephony/asterisk/asterisk-16-current.tar.gz`
-`tar -zxvf asterisk-16-current.tar.gz`
-`mv asterisk-16.x.x asterisk`
-`cd asterisk`
+```shell
+cd /usr/src/
+```
+```shell
+wget http://downloads.asterisk.org/pub/telephony/asterisk/asterisk-16-current.tar.gz
+```
+```shell
+tar -zxvf asterisk-16-current.tar.gz
+```
+```shell
+mv asterisk-16.x.x asterisk
+```
+```shell
+cd asterisk
+```
 
-`contrib/scripts/install_prereq install`
-`./configure --with-pjproject-bundled --with-crypto --with-ssl=ssl --with-srtp --with-jansson-bundled`
-`make menuselect`
-`make`
-`make install`
-`make samples`
-`make config`
-`ldconfig`
-`sudo service asterisk start`
+```shell
+contrib/scripts/install_prereq install
+```
+```shell
+./configure --with-pjproject-bundled --with-crypto --with-ssl=ssl --with-srtp --with-jansson-bundled
+```
+```shell
+make menuselect
+```
+```shell
+make
+```
+```shell
+make install
+```
+```shell
+make samples
+```
+```shell
+make config
+```
 
-`asterisk -rvv`
-`core show help`
-`exit`
+Start at server restart
+```shell
+ldconfig
+```
+```shell
+sudo service asterisk start
+```
 
-`cd /etc/asterisk`
-`mv extensions.conf extensions.sample`
-`mv sip.conf sip.sample`
-`mv pjsip.conf pjsip.sample`
+Entering into command line of asterisk
+```shell
+asterisk -rvv
+```
+```shell
+core show help
+```
+```shell
+exit
+```
+
+Configure extensions.conf and pjsip.conf
+```shell
+cd /etc/asterisk
+```
+```shell
+mv extensions.conf extensions.sample
+```
+```shell
+mv sip.conf sip.sample
+```
+```shell
+mv pjsip.conf pjsip.sample
+```
 
 ####Create extensions.conf
-`vi extensions.conf`
+```shell
+vi extensions.conf
+```
 ```
 [public]
 exten = 100,1,Goto(hello-world,s,1)
@@ -63,7 +117,9 @@ same = n,Playback(hello-world)
 same = n,Hangup()
 ```
 ####Create pjsip.conf
-`vi pjsip.conf`
+```shell
+vi pjsip.conf
+```
 ```
 [transport-udp]
 type=transport
