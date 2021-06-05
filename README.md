@@ -102,7 +102,7 @@ mv sip.conf sip.sample
 mv pjsip.conf pjsip.sample
 ```
 
-#### Create extensions.conf
+#### Creating a basic Dial Plan by editing extensions.conf
 ```shell
 vi extensions.conf
 ```
@@ -116,7 +116,7 @@ same = n,Wait(1)
 same = n,Playback(hello-world)
 same = n,Hangup()
 ```
-#### Create pjsip.conf
+#### Create SIP members in pjsip.conf
 ```shell
 vi pjsip.conf
 ```
